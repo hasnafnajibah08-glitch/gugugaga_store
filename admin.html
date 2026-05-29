@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - GUGUGAGA.STORE</title>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="assets/app.css?v=13">
+  <style>
+    .admin-container {
+      width: min(1500px, calc(100% - 28px));
+      margin-top: 24px;
+    }
+
+    .admin-transactions-card {
+      background:
+        radial-gradient(circle at 8% 0%, rgba(96, 165, 250, .32), transparent 34%),
+        radial-gradient(circle at 94% 12%, rgba(59, 130, 246, .25), transparent 32%),
+        linear-gradient(135deg, #071a44 0%, #0b2d6f 42%, #123f98 100%) !important;
+      border: 1px solid rgba(191, 219, 254, .24) !important;
+      box-shadow: 0 24px 58px rgba(7, 26, 68, .30) !important;
+    }
+
+    .admin-transactions-card .section-head h2,
+    .admin-transactions-card .section-head p {
+      color: #ffffff !important;
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 20px;
+      border: 1px solid rgba(191, 219, 254, .34);
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(5, 18, 48, .18);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      color: var(--text);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .admin-table {
+      min-width: 1300px;
+      table-layout: auto;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .admin-table th:nth-child(1),
+    .admin-table td:nth-child(1) { min-width: 155px; }
+
+    .admin-table th:nth-child(2),
+    .admin-table td:nth-child(2) { min-width: 205px; }
+
+    .admin-table th:nth-child(3),
+    .admin-table td:nth-child(3) { min-width: 250px; }
+
+    .admin-table th:nth-child(4),
+    .admin-table td:nth-child(4) { min-width: 128px; }
+
+    .admin-table th:nth-child(5),
+    .admin-table td:nth-child(5) { min-width: 150px; }
+
+    .admin-table th:nth-child(6),
+    .admin-table td:nth-child(6) { min-width: 235px; }
+
+    .admin-table th:nth-child(7),
+    .admin-table td:nth-child(7) {
+      min-width: 168px;
+      width: 168px;
+      position: sticky;
+      right: 0;
+      z-index: 2;
+      background: #ffffff !important;
+      box-shadow: -12px 0 18px rgba(15, 23, 42, .08);
+    }
+
+    .admin-table th:nth-child(7) {
+      z-index: 3;
+      background: #eaf1ff !important;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--card-2);
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .admin-tools {
+      display: grid;
+      grid-template-columns: 1fr 180px 190px 170px auto;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      margin: 2px 0;
+      white-space: nowrap;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .item-lines {
+      min-width: 250px;
+      max-width: 340px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .admin-table .status-pill {
+      background: #eaf1ff !important;
+      color: #174ea6 !important;
+      border-color: rgba(37, 99, 235, .16) !important;
+    }
+
+    .admin-table .muted,
+    .admin-table small {
+      color: #5d6a86 !important;
+    }
+
+    .admin-table a {
+      color: #174ea6;
+      font-weight: 800;
+    }
+
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 142px;
+    }
+
+    .action-stack .btn {
+      width: 100%;
+      justify-content: center;
+      padding-inline: 12px;
+      white-space: nowrap;
+    }
+
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(14, 24, 54, .48);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-bg.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(560px, 100%);
+      background: #ffffff;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .modal select,
+    .modal textarea {
+      width: 100%;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      justify-content: flex-end;
+    }
+
+    @media(max-width:980px) {
+      .admin-tools {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:760px) {
+      .admin-container {
+        width: min(100% - 16px, 1500px);
+      }
+
+      .admin-tools {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+      .admin-table {
+        min-width: 1180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="notif" id="notif"></div>
+
+  <nav class="navbar">
+    <a class="logo-area" href="admin.html" aria-label="Kembali ke Dashboard Admin">
+      <img src="LOGO.GG.png" class="logo" alt="Logo GUGUGAGA" onerror="this.onerror=null;this.src='LOGO.GG.png'">
+      <h1>Dashboard Admin</h1>
+    </a>
+
+    <div class="nav-actions">
+      <span class="user-chip">Admin: <b id="adminName">-</b></span>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container admin-container" id="adminContent">
+    <section class="card admin-transactions-card">
+      <div class="section-head">
+        <div>
+          <h2>Transaksi Masuk</h2>
+          <p>Kelola status pembayaran, approve bukti transfer manual, dan proses top up. Admin tidak dapat membuat transaksi.</p>
+        </div>
+      </div>
+
+      <div class="admin-tools">
+        <input id="search" placeholder="Cari invoice / username / email / HP">
+
+        <select id="statusFilter">
+          <option value="">Semua Transaksi</option>
+          <option value="pending">pending</option>
+          <option value="waiting_payment">waiting_payment</option>
+          <option value="paid">paid</option>
+          <option value="processing">processing</option>
+          <option value="success">success</option>
+          <option value="failed">failed</option>
+          <option value="cancelled">cancelled</option>
+          <option value="expired">expired</option>
+          <option value="refunded">refunded</option>
+        </select>
+
+        <select id="paymentStatusFilter">
+          <option value="">Semua Pembayaran</option>
+          <option value="unpaid">unpaid</option>
+          <option value="pending_confirmation">pending_confirmation</option>
+          <option value="paid">paid</option>
+          <option value="rejected">rejected</option>
+          <option value="refunded">refunded</option>
+        </select>
+
+        <select id="approvalFilter">
+          <option value="">Semua Approval</option>
+          <option value="needs_approval">Butuh Approve Manual</option>
+        </select>
+
+        <button class="btn" type="button" onclick="loadTransactions()">Filter</button>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Invoice</th>
+              <th>Customer</th>
+              <th>Item Top Up</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Pembayaran</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsBody">
+            <tr><td colspan="7">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <h2>Update Transaksi</h2>
+
+      <form id="updateForm">
+        <input type="hidden" id="transaction_id" name="transaction_id">
+
+        <label for="new_status">Status Transaksi</label>
+        <select id="new_status" name="status">
+          <option value="pending">pending</option>
+          <option value="waiting_payment">waiting_payment</option>
+          <option value="paid">paid</option>
+          <option value="processing">processing</option>
+          <option value="success">success</option>
+          <option value="failed">failed</option>
+          <option value="cancelled">cancelled</option>
+          <option value="expired">expired</option>
+          <option value="refunded">refunded</option>
+        </select>
+
+        <label for="new_payment_status">Status Pembayaran</label>
+        <select id="new_payment_status" name="payment_status">
+          <option value="unpaid">unpaid</option>
+          <option value="pending_confirmation">pending_confirmation</option>
+          <option value="paid">paid</option>
+          <option value="rejected">rejected</option>
+          <option value="refunded">refunded</option>
+        </select>
+
+        <label for="new_confirmation_status">Status Bukti Transfer Manual</label>
+        <select id="new_confirmation_status" name="confirmation_status">
+          <option value="">Jangan ubah</option>
+          <option value="submitted">submitted</option>
+          <option value="approved">approved</option>
+          <option value="rejected">rejected</option>
+        </select>
+
+        <label for="admin_note">Catatan Admin</label>
+        <textarea id="admin_note" name="admin_note" rows="3" placeholder="Opsional"></textarea>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn">Simpan</button>
+          <button type="button" class="btn secondary" onclick="closeModal()">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/admin.js?v=13"></script>
+</body>
+</html>

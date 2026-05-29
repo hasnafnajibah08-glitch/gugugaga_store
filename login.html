@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Login - GUGUGAGA.STORE</title>
+  <link rel="stylesheet" href="assets/app.css?v=13">
+</head>
+<body>
+  <div class="notif" id="notif"></div>
+
+  <nav class="navbar">
+    <a class="logo-area" href="index.html" aria-label="Kembali ke Beranda GUGUGAGA.STORE">
+      <img src="LOGO.GG.png" class="logo" alt="Logo GUGUGAGA" onerror="this.onerror=null;this.src='LOGO.GG.png'">
+      <h1>Login</h1>
+    </a>
+    <div class="nav-actions">
+      <a class="btn secondary" href="index.html">Beranda</a>
+    </div>
+  </nav>
+
+  <main class="container auth-page">
+    <section class="card auth-card">
+      <h2>Masuk ke GUGUGAGA.STORE</h2>
+      <p class="muted">Admin otomatis diarahkan ke dashboard admin. Customer otomatis diarahkan ke halaman user.</p>
+
+      <form id="loginForm">
+        <label>Username atau Email</label>
+        <input name="login" type="text" autocomplete="username" required>
+
+        <label>Password</label>
+        <input name="password" type="password" autocomplete="current-password" required>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn">Login</button>
+          <a class="btn secondary" href="index.html">Batal</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="assets/login.js?v=13"></script>
+</body>
+</html>

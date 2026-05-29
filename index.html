@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUGUGAGA.STORE</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div class="notif" id="notif"></div>
+
+  <nav class="navbar">
+    <div class="logo-area">
+      <img src="/GUGUGAGA_STORE_PHP/LOGO.GG.png" class="logo" id="siteLogo" alt="Logo GUGUGAGA">
+      <h1 id="siteName">GUGUGAGA.STORE</h1>
+    </div>
+    <div class="nav-actions" id="userArea">
+      <button onclick="showLoginModal()">Login</button>
+      <button onclick="showRegisterModal()">Register</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="card hero-card">
+        <h2>Top Up Game Murah, Cepat, dan Terpercaya</h2>
+        <p>Belanja diamond, UC, token, robux, dan item game favorit dengan alur transaksi yang lebih rapi, tersimpan di database, dan mudah diverifikasi admin.</p>
+        <div class="hero-actions">
+          <button class="btn" onclick="scrollToSection('gameSection')">Mulai Top Up</button>
+          <button class="btn secondary" onclick="scrollToSection('transactionSection')">Cek Transaksi</button>
+          <button class="btn secondary" onclick="showReviewModal()">Ulasan</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>24 Jam</b><br><span class="muted">Layanan aktif</span></div>
+          <div class="stat"><b>20</b><br><span class="muted">Game tersedia</span></div>
+          <div class="stat"><b>Aman</b><br><span class="muted">Data tersimpan</span></div>
+        </div>
+      </div>
+      <div class="card slider">
+        <div class="slides" id="slides"></div>
+      </div>
+    </section>
+
+    <section class="card popular-section">
+      <div class="section-head">
+        <div>
+          <h2>🔥 POPULER</h2>
+          <p>Produk yang paling sering dipilih pelanggan.</p>
+        </div>
+      </div>
+      <div class="popular-grid" id="popularGrid"></div>
+    </section>
+
+    <section class="card" id="gameSection">
+      <div class="section-head">
+        <div>
+          <h2>Pilih Game</h2>
+          <p>Pilih game, masukkan ID, lalu pilih nominal top up.</p>
+        </div>
+        <div class="search-box">
+          <input type="search" id="searchGame" placeholder="Cari game...">
+        </div>
+      </div>
+      <div class="game-list" id="gameList"></div>
+    </section>
+
+    <section class="card hidden" id="topupPanel">
+      <div class="section-head">
+        <div>
+          <h2>Top Up <span id="selectedGameName">Game</span></h2>
+          <p>Pastikan ID/username benar sebelum checkout.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label id="idLabel" for="game_user_identifier">ID</label>
+          <input type="text" id="game_user_identifier" autocomplete="off" placeholder="Masukkan ID">
+        </div>
+        <div id="serverInput" class="hidden">
+          <label id="serverLabel" for="game_server">Server</label>
+          <input type="text" id="game_server" autocomplete="off" placeholder="Masukkan server/zone">
+        </div>
+      </div>
+
+      <h3>Pilih Item</h3>
+      <div class="grid" id="productList"></div>
+
+      <div id="qtyPanel" class="hidden">
+        <label>Jumlah</label>
+        <div class="qty">
+          <button type="button" onclick="updateQuantity(-1)">-</button>
+          <input type="number" id="quantity" value="1" min="1">
+          <button type="button" onclick="updateQuantity(1)">+</button>
+          <button class="btn" id="addCartBtn" onclick="addToCart()" disabled>Masukkan Keranjang</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="cartSection">
+      <div class="section-head">
+        <div>
+          <h2>Keranjang</h2>
+          <p>Total: <b id="cartTotal">Rp0</b></p>
+        </div>
+        <button class="btn" id="checkoutBtn" onclick="showCheckoutModal()" disabled>Checkout</button>
+      </div>
+      <div class="cart-list" id="cartList"></div>
+    </section>
+
+    <section class="card" id="transactionSection">
+      <div class="section-head">
+        <div>
+          <h2>Riwayat Transaksi</h2>
+          <p>Status transaksi dan tombol upload bukti pembayaran.</p>
+        </div>
+      </div>
+      <div class="transaction-list" id="transactionList"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <h2>Ulasan Pelanggan</h2>
+          <p>Rating dan komentar dari pelanggan.</p>
+        </div>
+        <button class="btn secondary" onclick="showReviewModal()">Tulis Ulasan</button>
+      </div>
+      <div class="review-list" id="reviewList"></div>
+    </section>
+  </main>
+
+  <footer class="gg-footer">
+    <div class="gg-footer-top">
+      <img src="/GUGUGAGA_STORE_PHP/LOGO.GG.png" class="gg-footer-logo" id="footerLogo" alt="Logo footer">
+      <div>
+        <h1 id="footerSiteName">GUGUGAGA.STORE</h1>
+        <p id="footerDescription">Top up game murah, cepat, aman, dan terpercaya di Indonesia.</p>
+      </div>
+    </div>
+
+<div class="gg-footer-social">
+
+  <a href="https://wa.me/6281229566695" target="_blank">
+    <img src="assets/icons/wa.png" alt="WhatsApp">
+  </a>
+
+  <a href="https://instagram.com/" target="_blank">
+    <img src="assets/icons/ig.png" alt="Instagram">
+  </a>
+
+  <a href="https://tiktok.com/" target="_blank">
+    <img src="assets/icons/tt.png" alt="TikTok">
+  </a>
+
+  <a href="https://t.me/GUGUGAGASTORE" target="_blank">
+    <img src="assets/icons/tele.png" alt="Telegram">
+  </a>
+
+</div>
+
+    <div class="gg-footer-menu">
+      <div class="gg-col">
+        <h3>Kemitraan</h3>
+        <a href="admin.html">Dashboard Admin</a>
+        <a href="#cartSection">Keranjang</a>
+        <a href="#gameSection">Daftar Harga</a>
+      </div>
+      <div class="gg-col">
+        <h3>Peta Situs</h3>
+        <a href="#" onclick="scrollToSection('gameSection')">Beranda</a>
+        <a href="#" onclick="showRegisterModal()">Daftar</a>
+        <a href="#" onclick="scrollToSection('transactionSection')">Cek Transaksi</a>
+        <a href="#" onclick="showReviewModal()">Ulasan</a>
+      </div>
+      <div class="gg-col">
+        <h3>Legalitas</h3>
+        <a href="#">Kebijakan Pribadi</a>
+        <a href="#">Syarat & Ketentuan</a>
+      </div>
+      <div class="gg-col">
+        <h3>Hubungi MinGG</h3>
+        <a href="https://wa.me/6281229566695" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://t.me/GUGUGAGASTORE" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:gugugagastore@gmail.com?subject=Halo GUGUGAGA STORE">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-bg" id="modalBg">
+    <div class="modal hidden" id="loginModal">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label>Username atau Email</label>
+        <input name="login" type="text" autocomplete="username" required>
+        <label>Password</label>
+        <input name="password" type="password" autocomplete="current-password" required>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Login</button>
+          <button type="button" class="btn secondary" onclick="closeModal()">Batal</button>
+        </div>
+      </form>
+      <p><a href="#" onclick="forgotPassword()">Lupa kata sandi?</a></p>
+      </div>
+
+    <div class="modal hidden" id="registerModal">
+      <h2>Registrasi</h2>
+      <form id="registerForm">
+        <label>Username</label>
+        <input name="username" type="text" autocomplete="username" required>
+        <label>Nama Lengkap</label>
+        <input name="full_name" type="text" autocomplete="name">
+        <label>Email</label>
+        <input name="email" type="email" autocomplete="email">
+        <label>No. HP</label>
+        <input name="phone" type="text" autocomplete="tel">
+        <label>Password</label>
+        <input name="password" type="password" autocomplete="new-password" minlength="6" required>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Daftar</button>
+          <button type="button" class="btn secondary" onclick="closeModal()">Batal</button>
+        </div>
+      </form>
+      <p>Sudah punya akun? <button class="link-btn" onclick="showLoginModal()">Login</button></p>
+    </div>
+
+    <div class="modal wide hidden" id="checkoutModal">
+      <h2>Checkout</h2>
+      <form id="checkoutForm">
+        <div class="checkout-summary" id="checkoutSummary">Keranjang kosong.</div>
+        <label>Pilih Metode Pembayaran</label>
+        <select id="payment_method_id" name="payment_method_id" onchange="changePayment()" required></select>
+        <div id="paymentInfo" class="hidden"></div>
+        <label>Catatan Pembeli</label>
+        <textarea id="customer_note" name="customer_note" rows="3" placeholder="Opsional"></textarea>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Buat Invoice</button>
+          <button type="button" class="btn secondary" onclick="closeModal()">Batal</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal hidden" id="qrisModal">
+      <h2>Pembayaran QRIS</h2>
+      <div id="qrisContent">
+        <p class="muted">Memuat QRIS...</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn secondary" onclick="closeModal()">Tutup</button>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="paymentConfirmModal">
+      <h2>Upload Bukti Pembayaran</h2>
+      <form id="paymentConfirmForm" enctype="multipart/form-data">
+        <label>Invoice</label>
+        <input id="confirm_invoice_no" name="invoice_no" type="text" readonly required>
+        <label>Metode Pembayaran</label>
+        <select id="confirm_payment_method_id" name="payment_method_id" onchange="changeConfirmPaymentMethod()" required></select>
+        <div id="bankConfirmFields" class="hidden">
+          <label>Rekening Tujuan</label>
+          <select id="bank_account_id" name="bank_account_id"></select>
+          <label>Bank Pengirim</label>
+          <input name="sender_bank" type="text" placeholder="Contoh: BCA">
+          <label>Nama Rekening Pengirim</label>
+          <input name="sender_account_name" type="text" placeholder="Nama rekening kamu">
+          <label>No Rekening Pengirim</label>
+          <input name="sender_account_number" type="text" placeholder="Nomor rekening kamu">
+        </div>
+        <label>Nominal Dibayar</label>
+        <input id="amount_paid" name="amount_paid" type="number" min="1" required>
+        <label>Upload Bukti Transfer / Pembayaran</label>
+        <input id="proof_file" name="proof_file" type="file" accept="image/png,image/jpeg,image/webp">
+        <img id="proofPreview" style="display:none;width:100%;margin-top:10px;border-radius:14px" alt="Preview bukti pembayaran">
+        <label>Catatan</label>
+        <textarea name="note" rows="3" placeholder="Opsional"></textarea>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Kirim Bukti</button>
+          <button type="button" class="btn secondary" onclick="closeModal()">Batal</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal hidden" id="reviewModal">
+      <h2>Ulasan Pelanggan</h2>
+      <form id="reviewForm">
+        <label>Rating</label>
+        <select name="rating" required>
+          <option value="5">⭐⭐⭐⭐⭐ - Sangat puas</option>
+          <option value="4">⭐⭐⭐⭐ - Puas</option>
+          <option value="3">⭐⭐⭐ - Cukup</option>
+          <option value="2">⭐⭐ - Kurang</option>
+          <option value="1">⭐ - Tidak puas</option>
+        </select>
+        <label>Ulasan</label>
+        <textarea name="review_text" rows="4" required></textarea>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Kirim</button>
+          <button type="button" class="btn secondary" onclick="closeModal()">Tutup</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<script>
+
+function forgotPassword() {
+  alert("Fitur lupa kata sandi belum tersedia");
+}
+</script>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
